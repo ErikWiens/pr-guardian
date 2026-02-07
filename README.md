@@ -21,9 +21,11 @@ Since this is an unpacked extension (not published to the Chrome Web Store), you
 
 ## Testing
 
+### Manual Testing
 1. Visit any GitHub pull request with multiple commits
 2. You should see a warning message and the merge button will be hidden
 3. On PRs with a single commit, everything works normally
+4. Verify "Squash and merge" is automatically selected when warning appears
 
 ## Development
 
