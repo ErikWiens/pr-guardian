@@ -25,6 +25,10 @@ Since this is an unpacked extension (not published to the Chrome Web Store), you
 2. You should see a warning message and the merge button will be hidden
 3. On PRs with a single commit, everything works normally
 
+## Development
+
+This extension is designed to work seamlessly with GitHub's dynamic interface and will automatically detect when you navigate to a PR page.
+
 ## Files
 
 - `manifest.json` - Extension configuration
