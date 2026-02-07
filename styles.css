@@ -1,0 +1,51 @@
+/* PR Guardian Warning Styles */
+
+.pr-guardian-warning {
+  background: #fff8c5;
+  border: 2px solid #d4a72c;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 16px;
+  animation: pr-guardian-fadein 0.3s ease-in;
+}
+
+.pr-guardian-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pr-guardian-icon {
+  flex-shrink: 0;
+  fill: #9a6700;
+  margin-top: 2px;
+}
+
+.pr-guardian-text {
+  flex: 1;
+}
+
+.pr-guardian-text strong {
+  display: block;
+  color: #614700;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.pr-guardian-text p {
+  margin: 0;
+  color: #614700;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+@keyframes pr-guardian-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

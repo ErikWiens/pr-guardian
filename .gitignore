@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (in case you add build tools later)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Extension package files
+*.crx
+*.pem
