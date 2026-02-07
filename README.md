@@ -38,7 +38,9 @@ This extension is designed to work seamlessly with GitHub's dynamic interface an
 
 ## Note about Icons
 
-The manifest references icon files (`icon16.png`, `icon48.png`, `icon128.png`) that aren't included yet. The extension will work fine without them, but Chrome will show a default icon. You can add custom icons later if desired.
+The manifest references icon files (`icon16.png`, `icon48.png`, `icon128.png`) that aren't included yet. The extension will work fine without them, but Chrome will show a default icon.
+
+You can add custom icons later if desired - they should be square PNG files at the specified dimensions.
 
 ## How it works
 
