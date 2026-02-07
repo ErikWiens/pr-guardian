@@ -47,3 +47,7 @@ The extension uses:
 - **DOM Observation**: Watches for changes since GitHub is a single-page application
 - **Commit Detection**: Reads the commit count from the PR's "Commits" tab
 - **Button Hiding**: Hides merge buttons and displays a custom warning when multiple commits are detected
+
+## Contributing
+
+Found a bug or want to add a feature? Pull requests are welcome! Just remember to squash your commits before merging.
