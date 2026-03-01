@@ -1,54 +1,10 @@
 // PR Guardian - Prevents merging PRs with multiple commits
+// Detection logic lives in features/multi-commit.js (loaded before this file via manifest)
 
 function checkAndHideMergeButton() {
-  let commitCount = null;
-
-  // Method 1: Look for "wants to merge X commits" text in the PR header
-  // Note: This is language-dependent and may not work in non-English GitHub
-  const mergeInfo = document.querySelector(".gh-header-meta");
-  if (mergeInfo) {
-    const mergeText = mergeInfo.textContent;
-    const match = mergeText.match(/(\d+)\s+commits?/i);
-    if (match) {
-      commitCount = parseInt(match[1], 10);
-    }
-  }
-
-  // Method 2: Look for commits tab using ID (more stable than href pattern)
-  if (!commitCount) {
-    const commitsTab = document.querySelector("#prs-commits-anchor-tab");
-
-    if (commitsTab) {
-      // Check if there's a badge/counter element with the count
-      const badge = commitsTab.querySelector(
-        '.Counter, [class*="Counter"], [class*="badge"]',
-      );
-
-      if (badge) {
-        const badgeText = badge.textContent.trim();
-        const match = badgeText.match(/\d+/);
-        if (match) {
-          commitCount = parseInt(match[0], 10);
-        }
-      }
-
-      // Fallback: extract first number from tab text
-      if (!commitCount) {
-        const tabText = commitsTab.textContent;
-        const match = tabText.match(/(\d+)/);
-        if (match) {
-          commitCount = parseInt(match[1], 10);
-        }
-      }
-    }
-  }
-
-  if (!commitCount || isNaN(commitCount) || commitCount <= 1) {
-    return; // Single commit or invalid count - allow merge
-  }
-
-  // Multiple commits detected - hide merge button and show warning
-  hideMergeButton(commitCount);
+  const result = check(document);
+  if (!result) return;
+  hideMergeButton(result.commitCount);
 }
 
 function hideMergeButton(commitCount) {
