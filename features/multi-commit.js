@@ -36,14 +36,25 @@ function findMergeButton(document) {
   }) || null;
 }
 
-// Returns { commitCount } if this feature should block merge, null otherwise
-function check(document) {
+// Returns a result object if this feature should block merge, null otherwise.
+// owner and repo are provided by the orchestrator but not needed for this check.
+function check(document, owner, repo) {
   const commitCount = detectCommitCount(document);
   if (!commitCount || isNaN(commitCount) || commitCount <= 1) return null;
-  return { commitCount };
+  return {
+    commitCount,
+    message: `This PR has ${commitCount} commits. Please squash or rebase to a single commit before merging.`,
+    autoSquash: true,
+  };
 }
 
-// Dual-mode: works as a browser script (functions are global) and as a Node module
+// Register in browser context (all content scripts share the same isolated world)
+if (typeof window !== 'undefined' && typeof module === 'undefined') {
+  window.PRGuardianFeatures = window.PRGuardianFeatures || [];
+  window.PRGuardianFeatures.push({ id: 'multi-commit', check });
+}
+
+// Dual-mode: also exportable as a Node module for tests
 if (typeof module !== 'undefined') {
   module.exports = { detectCommitCount, findMergeButton, check };
 }

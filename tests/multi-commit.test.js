@@ -185,7 +185,7 @@ describe('check', () => {
     const doc = makeDocument(`
       <div class="gh-header-meta">wants to merge 2 commits into main</div>
     `);
-    expect(check(doc)).toEqual({ commitCount: 2 });
+    expect(check(doc)).toMatchObject({ commitCount: 2 });
   });
 
   test('returns { commitCount } for 2+ commits from tab badge', () => {
@@ -194,7 +194,7 @@ describe('check', () => {
         Commits <span class="Counter">5</span>
       </div>
     `);
-    expect(check(doc)).toEqual({ commitCount: 5 });
+    expect(check(doc)).toMatchObject({ commitCount: 5 });
   });
 
   test('commitCount in result matches the detected value', () => {
@@ -203,5 +203,21 @@ describe('check', () => {
     `);
     const result = check(doc);
     expect(result.commitCount).toBe(8);
+  });
+
+  test('result includes a human-readable message', () => {
+    const doc = makeDocument(`
+      <div class="gh-header-meta">wants to merge 3 commits into main</div>
+    `);
+    const result = check(doc);
+    expect(typeof result.message).toBe('string');
+    expect(result.message.length).toBeGreaterThan(0);
+  });
+
+  test('result includes autoSquash flag', () => {
+    const doc = makeDocument(`
+      <div class="gh-header-meta">wants to merge 2 commits into main</div>
+    `);
+    expect(check(doc)).toMatchObject({ autoSquash: true });
   });
 });
