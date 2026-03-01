@@ -28,19 +28,19 @@ function resolveActiveFeatures(config, features, pathname) {
 // DOM functions
 // ---------------------------------------------------------------------------
 
-function checkAndHideMergeButton() {
+async function checkAndHideMergeButton() {
   const config = window.PRGuardianConfig || { rules: [{ repo: '*', features: ['multi-commit'] }] };
   const features = window.PRGuardianFeatures || [];
 
   const activeFeatures = resolveActiveFeatures(config, features, location.pathname);
 
-  const pathMatch = location.pathname.match(/^\/([^/]+)\/([^/]+)\//);
+  const pathMatch = location.pathname.match(/^\/([^/]+)\/([^/]+)\/pull\/(\d+)/);
   if (!pathMatch) return;
-  const [, owner, repo] = pathMatch;
+  const [, owner, repo, prNumber] = pathMatch;
 
-  const results = activeFeatures
-    .map(f => f.check(document, owner, repo))
-    .filter(Boolean);
+  const results = (await Promise.all(
+    activeFeatures.map(f => f.check(document, owner, repo, prNumber))
+  )).filter(Boolean);
 
   if (results.length === 0) return;
 
