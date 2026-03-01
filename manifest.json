@@ -9,7 +9,7 @@
       "matches": [
         "https://github.com/*/*/pull/*"
       ],
-      "js": ["content.js"],
+      "js": ["features/multi-commit.js", "content.js"],
       "css": ["styles.css"],
       "run_at": "document_idle"
     }
